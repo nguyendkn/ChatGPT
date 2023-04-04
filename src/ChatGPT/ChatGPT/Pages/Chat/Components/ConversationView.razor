@@ -22,7 +22,7 @@
 
     private ElementReference ChatAreaRef;
 
-    private string RenderHtmlContent(string content) => Markdig.Markdown.ToHtml(
+    private string RenderHtmlContent(string content) => Markdown.ToHtml(
        markdown: content,
        pipeline: new MarkdownPipelineBuilder()
        .UseAdvancedExtensions()

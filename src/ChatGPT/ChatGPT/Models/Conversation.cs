@@ -1,6 +1,4 @@
-﻿using OpenAI.Net.Models.Responses;
-
-namespace ChatGPT.Models
+﻿namespace ChatGPT.Models
 {
     public class Conversation
     {
@@ -18,12 +16,12 @@ namespace ChatGPT.Models
 
         public void AppendToCurrentItem(string message)
         {
-            this.ConversationHistory[^1].Message += message;
+            ConversationHistory[^1].Message += message;
         }
 
         public string GetCurrentItemMessage()
         {
-            return this.ConversationHistory[^1].Message;
+            return ConversationHistory[^1].Message;
         }
     }
 

@@ -1,6 +1,3 @@
-using ElectronNET.API;
-using ElectronNET.API.Entities;
-
 using OpenAI.Net;
 
 namespace ChatGPT
@@ -18,9 +15,6 @@ namespace ChatGPT
             {
                 o.ApiKey = builder.Configuration["OpenAI:ApiKey"];
             });
-
-            builder.Services.AddElectron();
-            builder.WebHost.UseElectron(args);
 
             var app = builder.Build();
             app.UseStaticFiles();

@@ -6,16 +6,16 @@
 
 <div class="chat-container">
    
-    <ConversationContext SearchModel="@SearchModel" IsVisible="@IsConverstionContextVisible"></ConversationContext>
+    <ConversationContext SearchModel="@_searchModel" IsVisible="@IsConversationContextVisible"></ConversationContext>
 
     <div class="chat">
-        <CollapseButton IsOpen="@IsConverstionContextVisible" OnClicked="OnHideSidePanelClicked"></CollapseButton>
-        <ConversationView Conversation="Conversation"></ConversationView>
+        <CollapseButton IsOpen="@IsConversationContextVisible" OnClicked="OnHideSidePanelClicked"></CollapseButton>
+        <ConversationView Conversation="_conversation"></ConversationView>
         
         <div class="input-area">
-            <LoadingIndicator IsBusy="@IsBusy" StatusText="@StatusText"></LoadingIndicator>
-            <ErrorIndicator ErrorText="@ErrorText"></ErrorIndicator>
-            <ChatInput SearchModel="@SearchModel" OnGenerateTextCompletionSubmitted="Search" IsBusy="@IsBusy" OnGenerateImageClicked="GenerateImage" ></ChatInput>
+            <LoadingIndicator IsBusy="@_isBusy" StatusText="@_statusText"></LoadingIndicator>
+            <ErrorIndicator ErrorText="@_errorText"></ErrorIndicator>
+            <ChatInput SearchModel="@_searchModel" OnGenerateTextCompletionSubmitted="Search" IsBusy="@_isBusy"></ChatInput>
         </div>
     </div>
 
@@ -23,39 +23,37 @@
 
 
 @code{
-    private bool IsConverstionContextVisible = true;
-    private bool IsBusy = false;
-    private string StatusText = string.Empty;
-    private string ErrorText = string.Empty;
+        private const bool IsConversationContextVisible = true;
+    private bool _isBusy = false;
+    private string _statusText = string.Empty;
+    private string _errorText = string.Empty;
 
-    SearchModel SearchModel = new SearchModel()
+    readonly SearchModel _searchModel = new()
     {
-            SearchText = "write me a simple class that adds 2 numbers together and write a unit text using xunit to test it",
-            SystemContext = "You are a code generator, when generating code markdown ensure to include the language e.g c# should start with ```csharp. dont give any explanations or description code only",
+            SearchText = "",
+            SystemContext = "",
             AssistantContext = ""
     };
-    Conversation Conversation = new Conversation();
+
+    readonly Conversation _conversation = new();
 
     private void SetIsBusy(bool isBusy,string statusText = "")
     {
-        this.IsBusy = isBusy;
-        this.StatusText = statusText;
+        _isBusy = isBusy;
+        _statusText = statusText;
     }
 
 
-    public async Task Search()
+    private async Task Search()
     {
-        Conversation.AddItem("User", SearchModel.SearchText);
+        _conversation.AddItem("User", _searchModel.SearchText);
 
-        var messagesRequest = new List<Message>()
+        var messagesRequest = new List<Message>
         {
-            Message.Create(ChatRoleType.System,SearchModel.SystemContext),
-            Message.Create(ChatRoleType.Assistant, SearchModel.AssistantContext)
+            Message.Create(ChatRoleType.User,_searchModel.SearchText),
         };
 
-        messagesRequest.Add(Message.Create(ChatRoleType.User, SearchModel.SearchText));
-
-        Conversation.AddItem("AI", "");
+        _conversation.AddItem("AI", "");
 
         SetIsBusy(true, "Generating text..");
 
@@ -67,15 +65,15 @@
                  o.MaxTokens = 2048;
              }))
             {
-                this.Conversation.AppendToCurrentItem(result.Result!.Choices[0].Delta.Content);
+                _conversation.AppendToCurrentItem(result.Result!.Choices[0].Delta.Content);
                 StateHasChanged();
             }
 
-            SearchModel.AssistantContext += Conversation.GetCurrentItemMessage();
+            _searchModel.AssistantContext += _conversation.GetCurrentItemMessage();
         }
         catch(Exception ex)
         {
-            this.ErrorText = "An error has occurred";
+            _errorText = "An error has occurred";
         }
         finally
         {
@@ -84,29 +82,6 @@
      
 
         
-    }
-
-
-    public async Task GenerateImage()
-    {
-        SetIsBusy(true, "Generating Image");
-
-        var imageResponse = await OpenAIService.Images.Generate(SearchModel.SearchText, 1);
-        if (imageResponse.IsSuccess)
-        {
-            this.Conversation.AddItem("AI", $@"<img src=""{imageResponse?.Result?.Data[0].Url}"" alt=""drawing"" width=""400"" />");
-        }
-        else
-        {
-            this.ErrorText = imageResponse.ErrorResponse?.Error?.Message;
-        }
-        this.SetIsBusy(false);
-    }
-
-
-    private async Task OnHideSidePanelClicked()
-    {
-        this.IsConverstionContextVisible = !this.IsConverstionContextVisible;
     }
 
 }
