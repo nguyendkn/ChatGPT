@@ -1,0 +1,19 @@
+﻿@using ChatGPT.Models;
+
+@if (IsVisible)
+{
+    <div class="conversation-context">
+
+        <EditForm Model="@SearchModel" class="conversation-context-form">
+            
+        </EditForm>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public SearchModel SearchModel { get; set; }
+
+    [Parameter]
+    public bool IsVisible { get; set; } = true;
+}
