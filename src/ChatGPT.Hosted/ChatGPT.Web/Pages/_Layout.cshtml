@@ -11,14 +11,7 @@
     <base href="~/"/>
     <link href="css/site.css" rel="stylesheet"/>
     <link href="ChatGPT.Web.styles.css" rel="stylesheet"/>
-    @if (Environment.IsProduction())
-    {
-        <link rel="stylesheet" href="css/app.min.css">
-    }
-    else
-    {
-        <script src="https://cdn.tailwindcss.com"></script>
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>ChatGPT</title>
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
