@@ -12,13 +12,16 @@
         <PackageReference Include="OpenAI.Net.Client" Version="1.0.20" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\ChatGPT.Domain\ChatGPT.Domain.csproj" />
-    </ItemGroup>
+    <Target Name="BuildCss" BeforeTargets="Build">
+        <Exec Command="npm run build:css" />
+    </Target>
+
+    <Target Name="BuildCss" BeforeTargets="HotReload">
+        <Exec Command="npm run build:css" />
+    </Target>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+      <ProjectReference Include="..\..\ChatGPT.Domain\ChatGPT.Domain.csproj" />
     </ItemGroup>
 
 </Project>

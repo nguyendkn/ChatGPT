@@ -2,7 +2,7 @@ namespace ChatGPT.Shared.Models;
 
 public class Conversation
 {
-    public List<ConversationItem> ConversationHistory { get; set; } = new List<ConversationItem>();
+    public List<ConversationItem> ConversationHistory { get; set; } = new();
 
     public void AddItem(string user,string message)
     {
