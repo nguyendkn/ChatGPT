@@ -1,0 +1,86 @@
+﻿@page "/chat"
+
+<PageTitle>Index</PageTitle>
+
+@using ChatGPT.Shared.Models
+@using OpenAI.Net;
+@inject IOpenAIService OpenAIService
+
+<div class="chat-container">
+
+    <ConversationContext SearchModel="@_searchModel" IsVisible="@IsConversationContextVisible"></ConversationContext>
+
+    <div class="chat">
+        <CollapseButton IsOpen="@IsConversationContextVisible" OnClicked="OnHideSidePanelClicked"></CollapseButton>
+        <ConversationView Conversation="_conversation"></ConversationView>
+
+        <div class="input-area">
+            <LoadingIndicator IsBusy="@_isBusy" StatusText="@_statusText"></LoadingIndicator>
+            <ErrorIndicator ErrorText="@_errorText"></ErrorIndicator>
+            <ChatInput SearchModel="@_searchModel" OnGenerateTextCompletionSubmitted="Search" IsBusy="@_isBusy"></ChatInput>
+        </div>
+    </div>
+
+</div>
+
+
+@code{
+        private const bool IsConversationContextVisible = true;
+    private bool _isBusy;
+    private string _statusText = string.Empty;
+    private string _errorText = string.Empty;
+
+    readonly SearchModel _searchModel = new()
+    {
+        SearchText = "",
+        SystemContext = "",
+        AssistantContext = ""
+    };
+
+    readonly Conversation _conversation = new();
+
+    private void SetIsBusy(bool isBusy, string statusText = "")
+    {
+        _isBusy = isBusy;
+        _statusText = statusText;
+    }
+
+
+    private async Task Search()
+    {
+        _conversation.AddItem("User", _searchModel.SearchText);
+
+        var messagesRequest = new List<Message>
+        {
+            Message.Create(ChatRoleType.User, _searchModel.SearchText),
+        };
+
+        _conversation.AddItem("AI", "");
+
+        SetIsBusy(true, "Generating text..");
+
+        try
+        {
+            await foreach (var result in OpenAIService.Chat.GetStream(messagesRequest, o =>
+            {
+                o.N = 1;
+                o.MaxTokens = 2048;
+            }))
+            {
+                _conversation.AppendToCurrentItem(result.Result!.Choices[0].Delta.Content);
+                StateHasChanged();
+            }
+
+            _searchModel.AssistantContext += _conversation.GetCurrentItemMessage();
+        }
+        catch (Exception ex)
+        {
+            _errorText = "An error has occurred";
+        }
+        finally
+        {
+            SetIsBusy(false);
+        }
+    }
+
+}

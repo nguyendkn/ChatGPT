@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{685B934E-9A31-46FE-9B6D-9D2032C68A6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChatGPT.Hosted", "ChatGPT.Hosted", "{2C87747C-522A-49B0-8E8B-094472682D56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.Web", "src\ChatGPT.Hosted\ChatGPT.Web\ChatGPT.Web.csproj", "{3344AF1E-B4E9-43AA-B6B7-A1CA8E723F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.Shared", "src\ChatGPT.Shared\ChatGPT.Shared.csproj", "{50C12202-DD61-4A6D-81BC-63E9415DBC43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.Domain", "src\ChatGPT.Domain\ChatGPT.Domain.csproj", "{C2115808-2915-4B9E-BB1B-E28A1E7D0491}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C87747C-522A-49B0-8E8B-094472682D56} = {685B934E-9A31-46FE-9B6D-9D2032C68A6F}
+		{3344AF1E-B4E9-43AA-B6B7-A1CA8E723F0B} = {2C87747C-522A-49B0-8E8B-094472682D56}
+		{50C12202-DD61-4A6D-81BC-63E9415DBC43} = {685B934E-9A31-46FE-9B6D-9D2032C68A6F}
+		{C2115808-2915-4B9E-BB1B-E28A1E7D0491} = {685B934E-9A31-46FE-9B6D-9D2032C68A6F}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3344AF1E-B4E9-43AA-B6B7-A1CA8E723F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3344AF1E-B4E9-43AA-B6B7-A1CA8E723F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3344AF1E-B4E9-43AA-B6B7-A1CA8E723F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3344AF1E-B4E9-43AA-B6B7-A1CA8E723F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C12202-DD61-4A6D-81BC-63E9415DBC43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C12202-DD61-4A6D-81BC-63E9415DBC43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C12202-DD61-4A6D-81BC-63E9415DBC43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C12202-DD61-4A6D-81BC-63E9415DBC43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2115808-2915-4B9E-BB1B-E28A1E7D0491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2115808-2915-4B9E-BB1B-E28A1E7D0491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2115808-2915-4B9E-BB1B-E28A1E7D0491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2115808-2915-4B9E-BB1B-E28A1E7D0491}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
