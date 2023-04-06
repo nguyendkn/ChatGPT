@@ -3,8 +3,8 @@
 @using ColorCode.Styling;
 @inject IJSRuntime JS
 
-<div class="flex flex-col items-center text-sm dark:bg-gray-800 overflow-y-scroll h-calc(100vh - 195px)" @ref="ChatAreaRef">
-    <div class="flex w-full items-center justify-center gap-1 border-b border-black/10 bg-gray-50 p-3 text-gray-500 dark:border-gray-900/50 dark:bg-[#40414F] dark:text-gray-300">Model: Default (GPT-3.5)</div>
+<div class="flex flex-col items-center text-sm dark:bg-gray-800 h-calc(100vh - 195px)" @ref="ChatAreaRef">
+    <div class="text-white flex w-full items-center justify-center gap-1 border-b border-black/10 bg-gray-50 p-3 text-gray-500 dark:border-gray-900/50 dark:bg-[#40414F] dark:text-gray-300" style="background-color: rgb(32 33 35 / var(--tw-bg-opacity));">Model: Default (GPT-3.5)</div>
     @foreach (var result in Conversation?.ConversationHistory ?? new List<ConversationItem>())
     {
         <div class="group w-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-gray-900/50 @(result.User == "AI" ? "bg-gray-50 dark:bg-[#444654]" : "dark:bg-transparent")">

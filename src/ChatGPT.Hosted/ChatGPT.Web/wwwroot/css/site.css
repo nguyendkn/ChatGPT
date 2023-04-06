@@ -49,3 +49,25 @@ html, body {
     --tw-bg-opacity: 1;
     background-color: rgba(172,172,190,var(--tw-bg-opacity))
 }
+.dark\:bg-\[\#444654\].group {
+    --tw-bg-opacity: 1;
+    background-color: rgba(68,70,84,var(--tw-bg-opacity));
+}
+.dark\:bg-gray-800 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(52,53,65,var(--tw-bg-opacity));
+}
+.group {
+    color: rgba(236,236,241,var(--tw-text-opacity)) !important;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(86, 88, 105, 1) !important;
+}
+@media (min-width: 768px) {
+    .scrollbar-trigger:hover ::-webkit-scrollbar-thumb {
+        visibility: visible;
+    }
+    .scrollbar-trigger ::-webkit-scrollbar-thumb {
+        visibility: hidden;
+    }
+}
