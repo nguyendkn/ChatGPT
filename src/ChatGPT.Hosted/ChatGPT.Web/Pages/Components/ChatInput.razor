@@ -28,4 +28,9 @@
     [Parameter]
     public bool IsBusy { get; set; }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
 }

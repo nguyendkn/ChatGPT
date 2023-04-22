@@ -90,7 +90,8 @@
 
     private void ScrollToEnd()
     {
-        if (ChatAreaRef != null) JS.InvokeVoidAsync("ChatGPTMethods.scrollToEnd", ChatAreaRef);
+        if (ChatAreaRef != null) 
+            JS.InvokeVoidAsync("ChatGPTMethods.scrollToEnd", ChatAreaRef);
     }
 
 }
